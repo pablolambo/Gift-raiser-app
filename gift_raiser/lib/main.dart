@@ -23,12 +23,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// theme: ThemeData(
-//   primaryColor: Colors.green, // Primary color
-//   primaryColorDark: Colors.green[700], // Primary dark color
-//   // ... other theme properties
-// ),
-
 class MyAppState extends ChangeNotifier {
   void someFunctionBlablabla() {
     notifyListeners();
@@ -51,10 +45,7 @@ class _HomePageState extends State<HomePage> {
       'Index 0: Account',
       style: optionStyle,
     ),
-    Text(
-      'Index 1: Gift',
-      style: optionStyle,
-    ),
+    AddFundraiserWidget(),
     Text(
       'Index 2: Logout',
       style: optionStyle,
@@ -73,7 +64,7 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Gift raiser'),
+        title: const Text('Gift fundraiser'),
       ),
       body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
       bottomNavigationBar: BottomNavigationBar(
@@ -81,13 +72,69 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle), label: 'Account'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle), label: 'Add gift'),
+              icon: Icon(Icons.add_circle), label: 'Add fundraiser'),
           BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Logout'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: theme.colorScheme.primary,
         onTap: _onItemTapped,
       ),
+    );
+  }
+}
+
+class AddFundraiserWidget extends StatelessWidget {
+  const AddFundraiserWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        const Center(
+          child: Text(
+            'Create a fundraiser',
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+              fontFamily: 'Roboto',
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              hintText: 'Title',
+              fillColor: Color.fromARGB(240, 240, 240, 240),
+              filled: true,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'Cost',
+              fillColor: Color.fromARGB(240, 240, 240, 240),
+              filled: true,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: TextFormField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: 'End date dd/mm/yyyy',
+              fillColor: Color.fromARGB(240, 240, 240, 240),
+              filled: true,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
