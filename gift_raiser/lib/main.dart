@@ -13,14 +13,21 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Gift raiser',
         theme: ThemeData(
-          useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF08571E)),
-        ),
+            useMaterial3: true,
+            colorScheme:
+                ColorScheme.fromSeed(seedColor: const Color(0xFF08571E)),
+            primaryColorDark: Color.fromARGB(255, 24, 24, 24)),
         home: const HomePage(),
       ),
     );
   }
 }
+
+// theme: ThemeData(
+//   primaryColor: Colors.green, // Primary color
+//   primaryColorDark: Colors.green[700], // Primary dark color
+//   // ... other theme properties
+// ),
 
 class MyAppState extends ChangeNotifier {
   void someFunctionBlablabla() {
@@ -74,11 +81,11 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle), label: 'Account'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.wallet_giftcard_outlined), label: 'Gifts'),
+              icon: Icon(Icons.add_circle), label: 'Add gift'),
           BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Logout'),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: theme.colorScheme.secondary,
+        selectedItemColor: theme.colorScheme.primary,
         onTap: _onItemTapped,
       ),
     );
