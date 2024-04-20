@@ -17,11 +17,31 @@ class MyApp extends StatelessWidget {
             colorScheme:
                 ColorScheme.fromSeed(seedColor: const Color(0xFF08571E)),
             primaryColorDark: Color.fromARGB(255, 24, 24, 24)),
-        home: const HomePage(),
+        home: DefaultTextStyle(
+          style: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            fontFamily: 'Roboto',
+          ),
+          child: const HomePage(),
+        ),
       ),
     );
   }
 }
+
+//         home: DefaultTextStyle(
+//           style: TextStyle(
+//             fontSize: 16,
+//             fontWeight: FontWeight.normal,
+//             fontFamily: 'Roboto',
+//           ),
+//           child: const HomePage(),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class MyAppState extends ChangeNotifier {
   void someFunctionBlablabla() {
@@ -72,7 +92,7 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
               icon: Icon(Icons.account_circle), label: 'Account'),
           BottomNavigationBarItem(
-              icon: Icon(Icons.add_circle), label: 'Add fundraiser'),
+              icon: Icon(Icons.add_circle), label: 'Fundraiser'),
           BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Logout'),
         ],
         currentIndex: _selectedIndex,
@@ -88,14 +108,16 @@ class AddFundraiserWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      //crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Center(
+        Center(
           child: Text(
             'Create a fundraiser',
             style: TextStyle(
-              fontSize: 20,
+              fontSize: 36,
               fontWeight: FontWeight.bold,
               fontFamily: 'Roboto',
             ),
@@ -113,7 +135,7 @@ class AddFundraiserWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
           child: TextFormField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -131,6 +153,77 @@ class AddFundraiserWidget extends StatelessWidget {
               labelText: 'End date dd/mm/yyyy',
               fillColor: Color.fromARGB(240, 240, 240, 240),
               filled: true,
+            ),
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              TextButton.icon(
+                onPressed: () {
+                  // TODO: Implement this
+                },
+                icon: Icon(
+                  Icons.add_circle,
+                  size: 36,
+                ),
+                label: Text(
+                  'Add a person to the fundraiser',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Roboto',
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Padding(
+                  padding: EdgeInsets.all(8),
+                  child: TextButton(
+                    onPressed: () {
+                      // TODO: Implement this
+                    },
+                    style: ButtonStyle(
+                      alignment: Alignment.center,
+                      backgroundColor: MaterialStateProperty.all<Color>(
+                          theme.colorScheme.primary),
+                    ),
+                    child: Text(
+                      'Create',
+                      style: TextStyle(
+                        color: const Color.fromARGB(255, 255, 255, 255),
+                        fontSize: 36,
+                      ),
+                    ),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    // TODO: Implement this
+                  },
+                  style: ButtonStyle(
+                    alignment: Alignment.center,
+                  ),
+                  child: Text(
+                    'Dismiss',
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
+                        fontFamily: 'Roboto'),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
