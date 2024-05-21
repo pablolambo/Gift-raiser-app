@@ -89,8 +89,29 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AddFundraiserWidget extends StatelessWidget {
-  const AddFundraiserWidget({super.key});
+class AddFundraiserWidget extends StatefulWidget {
+  const AddFundraiserWidget({Key? key}) : super(key: key);
+
+  @override
+  _AddFundraiserWidgetState createState() => _AddFundraiserWidgetState();
+}
+
+class _AddFundraiserWidgetState extends State<AddFundraiserWidget> {
+  DateTime? _selectedDate;
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: _selectedDate ?? DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != _selectedDate) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,12 +152,19 @@ class AddFundraiserWidget extends StatelessWidget {
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'End date dd/mm/yyyy',
-              fillColor: Color.fromARGB(240, 240, 240, 240),
-              filled: true,
+          child: GestureDetector(
+            onTap: () => _selectDate(context),
+            child: AbsorbPointer(
+              child: TextFormField(
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: _selectedDate == null
+                      ? 'End date dd/mm/yyyy'
+                      : 'End date: ${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
+                  fillColor: Color.fromARGB(240, 240, 240, 240),
+                  filled: true,
+                ),
+              ),
             ),
           ),
         ),
@@ -175,7 +203,7 @@ class AddFundraiserWidget extends StatelessWidget {
                     },
                     style: ButtonStyle(
                       alignment: Alignment.center,
-                      backgroundColor: WidgetStateProperty.all<Color>(
+                      backgroundColor: MaterialStateProperty.all<Color>(
                           theme.colorScheme.primary),
                     ),
                     child: Text(
