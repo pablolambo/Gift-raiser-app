@@ -359,7 +359,7 @@ class AddFundraiserWidget extends StatelessWidget {
                     },
                     style: ButtonStyle(
                       alignment: Alignment.center,
-                      backgroundColor: MaterialStateProperty.all<Color>(
+                      backgroundColor: WidgetStateProperty.all<Color>(
                           theme.colorScheme.primary),
                     ),
                     child: Text(
