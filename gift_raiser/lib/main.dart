@@ -16,35 +16,16 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
             colorScheme:
                 ColorScheme.fromSeed(seedColor: const Color(0xFF08571E)),
-            primaryColorDark: Color.fromARGB(255, 24, 24, 24)),
-        home: DefaultTextStyle(
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Roboto',
-          ),
-          child: const HomePage(),
-        ),
+            primaryColorDark: Color.fromARGB(255, 24, 24, 24),
+            fontFamily: 'Roboto'),
+        home: SignUpPage(),
       ),
     );
   }
 }
 
-//         home: DefaultTextStyle(
-//           style: TextStyle(
-//             fontSize: 16,
-//             fontWeight: FontWeight.normal,
-//             fontFamily: 'Roboto',
-//           ),
-//           child: const HomePage(),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
 class MyAppState extends ChangeNotifier {
-  void someFunctionBlablabla() {
+  void notify() {
     notifyListeners();
   }
 }
@@ -58,17 +39,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 1;
-  static const TextStyle optionStyle =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
     Text(
       'Index 0: Account',
-      style: optionStyle,
+      style: TextStyle(
+        fontFamily: 'CascadiaMono',
+        fontSize: 50,
+      ),
     ),
     AddFundraiserWidget(),
     Text(
       'Index 2: Logout',
-      style: optionStyle,
     ),
   ];
 
@@ -103,6 +84,195 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+class SignInPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(16.0),
+      elevation: 4.0,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildTitle(context),
+            SizedBox(height: 16.0),
+            _buildTextField(hintText: 'Email', icon: Icons.email),
+            SizedBox(height: 16.0),
+            _buildTextField(
+                hintText: 'Password', icon: Icons.lock, obscureText: true),
+            SizedBox(height: 16.0),
+            _buildButtons(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Sign In',
+          style: TextStyle(
+            fontSize: 24.0,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        TextButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignUpPage()),
+            );
+          },
+          child: Text(
+            'Sign In',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTextField(
+      {required String hintText,
+      required IconData icon,
+      bool obscureText = false}) {
+    return TextField(
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: Icon(icon),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButtons(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            // Handle sign up logic
+          },
+          child: Text('Sign In'),
+        ),
+        TextButton(
+          onPressed: () {
+            // Handle cancel logic
+          },
+          child: Text('Cancel'),
+        ),
+      ],
+    );
+  }
+}
+
+class SignUpPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.all(16.0),
+      elevation: 4.0,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _buildTitle(context),
+            SizedBox(height: 16.0),
+            _buildTextField(hintText: 'Username', icon: Icons.person),
+            SizedBox(height: 16.0),
+            _buildTextField(hintText: 'Email', icon: Icons.email),
+            SizedBox(height: 16.0),
+            _buildTextField(
+                hintText: 'Password', icon: Icons.lock, obscureText: true),
+            SizedBox(height: 16.0),
+            _buildButtons(context),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildTitle(BuildContext context) {
+    final theme = Theme.of(context);
+
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Sign Up',
+          style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
+        ),
+        TextButton(
+          onPressed: () {
+            // Navigate to the login page or handle login logic
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignInPage()),
+            );
+          },
+          child: Text(
+            'Login',
+            style: TextStyle(
+              fontSize: 16.0,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildTextField(
+      {required String hintText,
+      required IconData icon,
+      bool obscureText = false}) {
+    return TextField(
+      obscureText: obscureText,
+      decoration: InputDecoration(
+        hintText: hintText,
+        prefixIcon: Icon(icon),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildButtons(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            // Handle sign up logic
+          },
+          child: Text('Sign Up'),
+        ),
+        TextButton(
+          onPressed: () {
+            // Handle cancel logic
+          },
+          child: Text('Cancel'),
+        ),
+      ],
+    );
+  }
+}
+
 class AddFundraiserWidget extends StatelessWidget {
   const AddFundraiserWidget({super.key});
 
@@ -111,15 +281,13 @@ class AddFundraiserWidget extends StatelessWidget {
     final theme = Theme.of(context);
 
     return Column(
-      //crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Center(
           child: Text(
             'Create a fundraiser',
             style: TextStyle(
               fontSize: 36,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'Roboto',
             ),
           ),
         ),
@@ -135,7 +303,7 @@ class AddFundraiserWidget extends StatelessWidget {
           ),
         ),
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
+          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
           child: TextFormField(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -171,11 +339,6 @@ class AddFundraiserWidget extends StatelessWidget {
                 ),
                 label: Text(
                   'Add a person to the fundraiser',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: 'Roboto',
-                  ),
                 ),
               ),
             ],
@@ -201,10 +364,6 @@ class AddFundraiserWidget extends StatelessWidget {
                     ),
                     child: Text(
                       'Create',
-                      style: TextStyle(
-                        color: const Color.fromARGB(255, 255, 255, 255),
-                        fontSize: 36,
-                      ),
                     ),
                   ),
                 ),
@@ -217,10 +376,6 @@ class AddFundraiserWidget extends StatelessWidget {
                   ),
                   child: Text(
                     'Dismiss',
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                        fontFamily: 'Roboto'),
                   ),
                 ),
               ],
