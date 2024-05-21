@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
                 ColorScheme.fromSeed(seedColor: const Color(0xFF08571E)),
             primaryColorDark: Color.fromARGB(255, 24, 24, 24),
             fontFamily: 'Roboto'),
-        home: SignUpPage(),
+        home: SignInPage(),
       ),
     );
   }
@@ -131,7 +131,7 @@ class SignInPage extends StatelessWidget {
             );
           },
           child: Text(
-            'Sign In',
+            'Sign Up',
             style: TextStyle(
               fontSize: 16.0,
               color: theme.colorScheme.primary,
@@ -164,15 +164,12 @@ class SignInPage extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            // Handle sign up logic
+            Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => HomePage()),
+          );
           },
           child: Text('Sign In'),
-        ),
-        TextButton(
-          onPressed: () {
-            // Handle cancel logic
-          },
-          child: Text('Cancel'),
         ),
       ],
     );
@@ -218,7 +215,6 @@ class SignUpPage extends StatelessWidget {
         ),
         TextButton(
           onPressed: () {
-            // Navigate to the login page or handle login logic
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => SignInPage()),
@@ -258,15 +254,12 @@ class SignUpPage extends StatelessWidget {
       children: [
         ElevatedButton(
           onPressed: () {
-            // Handle sign up logic
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => SignInPage()),
+            );
           },
           child: Text('Sign Up'),
-        ),
-        TextButton(
-          onPressed: () {
-            // Handle cancel logic
-          },
-          child: Text('Cancel'),
         ),
       ],
     );
