@@ -20,4 +20,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/profile_picture.png
+    - assets/profile_picture2.png
+    - assets/profile_picture3.png
+    - assets/profile_picture4.png
     - assets/gift_icon.png
