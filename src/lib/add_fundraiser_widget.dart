@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-
-import 'components/switch.dart';
 import 'main.dart';
 
 class AddFundraiserWidget extends StatefulWidget {
-  const AddFundraiserWidget({Key? key}) : super(key: key);
+  const AddFundraiserWidget({super.key});
 
   @override
   _AddFundraiserWidgetState createState() => _AddFundraiserWidgetState();
@@ -171,66 +169,6 @@ Expanded(
          ),
         ),
       ],
-    );
-  }
-}
-
-class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Align(
-        alignment: Alignment.topCenter,
-        child: ListView(
-          shrinkWrap: true,
-          children: [
-            Container(
-              alignment: Alignment.topCenter,
-              color: Color(0xFF08571E),
-              child: Column(
-                children: [
-                  SizedBox(height: 10),
-                  CircleAvatar(
-                    radius: 50,
-                    backgroundImage: AssetImage('assets/profile_picture.png'),
-                  ),
-                  Text(
-                    'Wojciech Wąsacz',
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                  Text(
-                    '+48 552 851 984',
-                    style: TextStyle(color: Colors.white, fontSize: 16),
-                  ),
-                  SizedBox(height: 10),
-                ],
-              ),
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(height: 10),
-                StatusSwitch( ),
-                SizedBox(height: 10),
-                ListTile(
-                  leading: Image.asset('assets/gift_icon.png'),
-                  title: Text('Gift for Robert'),
-                  subtitle: Text('\$100 until 08.06.2024'),
-                  minLeadingWidth: 10,
-                  horizontalTitleGap: 10,
-                ),
-                ListTile(
-                  leading: Image.asset('assets/gift_icon.png'),
-                  title: Text('Gift for Adam'),
-                  subtitle: Text('\$150 until 10.12.2024'),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
     );
   }
 }

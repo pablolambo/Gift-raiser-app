@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'account_page.dart';
 import 'add_fundraiser_widget.dart';
-import 'components/switch.dart';
 import 'sign_in_page.dart';
 
 void main() => runApp(const MyApp());
@@ -52,7 +51,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    AccountPage(),
+    AccountPageWrapper(),
     AddFundraiserWidget(),
     FriendsPage(),
   ];

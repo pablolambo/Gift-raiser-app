@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class StatusSwitch extends StatefulWidget {
-  const StatusSwitch({super.key});
+  final Function(bool) onChanged;
+
+  const StatusSwitch({super.key, required this.onChanged});
 
   @override
   State<StatusSwitch> createState() => _SwitchExampleState();
@@ -32,6 +34,7 @@ class _SwitchExampleState extends State<StatusSwitch> {
             setState(() {
               light0 = value;
             });
+            widget.onChanged(value);
           },
         ),
         Text('Show active'),
