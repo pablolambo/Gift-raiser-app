@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'add_fundraiser_widget.dart';
+import 'components/switch.dart';
 import 'sign_in_page.dart';
 
 void main() => runApp(const MyApp());
@@ -41,26 +43,18 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-
-      if (index == 2) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => SignInPage()),
-      );
-    }
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Account',),
+    AccountPage(),
     AddFundraiserWidget(),
-    Text('',),
+    FriendsPage(),
   ];
 
 
@@ -79,7 +73,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.account_circle), label: 'Account'),
           BottomNavigationBarItem(
               icon: Icon(Icons.add_circle), label: 'Fundraiser'),
-          BottomNavigationBarItem(icon: Icon(Icons.logout), label: 'Logout'),
+          BottomNavigationBarItem(icon: Icon(Icons.people_alt_outlined), label: 'Friends'),
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: theme.colorScheme.primary,
@@ -89,116 +83,43 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class AddFundraiserWidget extends StatelessWidget {
-  const AddFundraiserWidget({super.key});
-
+class FriendsPage extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: [
+      Center(
+        child: Text(
+          textAlign: TextAlign.left,
+          'Friends',
+          style: TextStyle(
+            fontSize: 36,
+          ),
+        ),
+      ),
+      ListTile(
+        leading: CircleAvatar(
+          backgroundImage: AssetImage('assets/profile_picture2.png'),
+        ),
+        title: Text('Agnieszka Nowakowska'),
+        subtitle: Text('\$\$'),
 
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        Center(
-          child: Text(
-            'Create a fundraiser',
-            style: TextStyle(
-              fontSize: 36,
-            ),
-          ),
+      ),
+      ListTile(
+        leading: CircleAvatar(
+          backgroundImage: AssetImage('assets/profile_picture3.png'),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Title',
-              fillColor: Color.fromARGB(240, 240, 240, 240),
-              filled: true,
-            ),
-          ),
+        title: Text('Robert Kowalski'),
+        subtitle: Text('\$'),
+      ),
+      ListTile(
+        leading: CircleAvatar(
+          backgroundImage: AssetImage('assets/profile_picture4.png'),
         ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'Cost',
-              fillColor: Color.fromARGB(240, 240, 240, 240),
-              filled: true,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: TextFormField(
-            decoration: InputDecoration(
-              border: OutlineInputBorder(),
-              labelText: 'End date dd/mm/yyyy',
-              fillColor: Color.fromARGB(240, 240, 240, 240),
-              filled: true,
-            ),
-          ),
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TextButton.icon(
-                onPressed: () {
-                  // TODO: Implement this
-                },
-                icon: Icon(
-                  Icons.add_circle,
-                  size: 36,
-                ),
-                label: Text(
-                  'Add a person to the fundraiser',
-                ),
-              ),
-            ],
-          ),
-        ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextButton(
-                    onPressed: () {
-                      // TODO: Implement this
-                    },
-                    style: ButtonStyle(
-                      alignment: Alignment.center,
-                      backgroundColor: WidgetStateProperty.all<Color>(
-                          theme.colorScheme.primary),
-                    ),
-                    child: Text(
-                      'Create',
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () {
-                    // TODO: Implement this
-                  },
-                  style: ButtonStyle(
-                    alignment: Alignment.center,
-                  ),
-                  child: Text(
-                    'Dismiss',
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ],
-    );
+        title: Text('Adam Nowak'),
+        subtitle: Text('\$\$\$'),
+      ),
+    ],);
   }
 }
