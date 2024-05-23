@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
+import 'components/switch.dart';
 import 'sign_in_page.dart';
 
 void main() => runApp(const MyApp());
@@ -41,7 +41,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 1;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -57,10 +57,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    Text(
-      'Index 0: Account',),
+    AccountPage(),
     AddFundraiserWidget(),
-    Text('',),
+    Text(''),
   ];
 
 
@@ -188,45 +187,117 @@ class _AddFundraiserWidgetState extends State<AddFundraiserWidget> {
             ],
           ),
         ),
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Padding(
-                  padding: EdgeInsets.all(8),
-                  child: TextButton(
-                    onPressed: () {
-                      // TODO: Implement this
-                    },
-                    style: ButtonStyle(
-                      alignment: Alignment.center,
-                      backgroundColor: MaterialStateProperty.all<Color>(
-                          theme.colorScheme.primary),
-                    ),
-                    child: Text(
-                      'Create',
-                    ),
-                  ),
+Expanded(
+  child: Padding(
+    padding: const EdgeInsets.all(16),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+           TextButton(
+            onPressed: () {
+              // TODO: Implement this
+            },
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.all<Color>(
+                Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            child: SizedBox(
+              width: double.infinity,
+              child: Text(
+                textAlign: TextAlign.center,
+                'Create',
+                style: TextStyle(
+                  color: Colors.white,
                 ),
-                TextButton(
-                  onPressed: () {
-                    // TODO: Implement this
-                  },
-                  style: ButtonStyle(
-                    alignment: Alignment.center,
+              ),
+            ),
+          ),
+          Padding(padding: EdgeInsets.symmetric(vertical: 4)),
+          SizedBox(
+            width: double.infinity,
+            child: TextButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomePage()),
+              );
+            },
+            style: ButtonStyle(
+              alignment: Alignment.center,
+            ),
+            child: Text(
+              textAlign: TextAlign.center,
+              'Dismiss',
+                ),
+               ),
+          ),
+            ],
+          ),
+         ),
+        ),
+      ],
+    );
+  }
+}
+
+class AccountPage extends StatelessWidget {
+  const AccountPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Align(
+        alignment: Alignment.topCenter,
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            Container(
+              alignment: Alignment.topCenter,
+              color: Color(0xFF08571E),
+              child: Column(
+                children: [
+                  SizedBox(height: 10),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage('assets/profile_picture.png'),
                   ),
-                  child: Text(
-                    'Dismiss',
+                  Text(
+                    'Wojciech Wąsacz',
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
+                  Text(
+                    '+48 552 851 984',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                                    SizedBox(height: 10),
+                ],
+              ),
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: 10),
+                StatusSwitch( ),
+                SizedBox(height: 10),
+                ListTile(
+                  leading: Image.asset('assets/gift_icon.png'),
+                  title: Text('Gift for Robert'),
+                  subtitle: Text('\$100 until 08.06.2024'),
+                  minLeadingWidth: 10,
+                  horizontalTitleGap: 10,
+                ),
+                ListTile(
+                  leading: Image.asset('assets/gift_icon.png'),
+                  title: Text('Gift for Adam'),
+                  subtitle: Text('\$150 until 10.12.2024'),
                 ),
               ],
             ),
-          ),
+          ],
         ),
-      ],
+      ),
     );
   }
 }
