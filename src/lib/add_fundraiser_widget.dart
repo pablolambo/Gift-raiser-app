@@ -109,7 +109,27 @@ Expanded(
       children: [
            TextButton(
             onPressed: () {
-              // TODO: Implement this
+              showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    title: Text('Success'),
+                    content: Text('Your operation was successful.'),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomePage()),
+                          );
+                        },
+                        child: Text('OK'),
+                      ),
+                    ],
+                  );
+                },
+              );
             },
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.all<Color>(
