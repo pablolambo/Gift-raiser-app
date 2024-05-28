@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'account_page.dart';
 import 'add_fundraiser_widget.dart';
+import 'friends.dart';
 import 'sign_in_page.dart';
 
 void main() => runApp(const MyApp());
@@ -51,11 +51,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   static List<Widget> _widgetOptions = <Widget>[
-    AccountPageWrapper(),
+    AccountPageWrapper(fundraisers: [],), // here
     AddFundraiserWidget(),
     FriendsPage(),
   ];
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,44 +78,5 @@ class _HomePageState extends State<HomePage> {
         onTap: _onItemTapped,
       ),
     );
-  }
-}
-
-class FriendsPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-      Center(
-        child: Text(
-          textAlign: TextAlign.left,
-          'Friends',
-          style: TextStyle(
-            fontSize: 36,
-          ),
-        ),
-      ),
-      ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile_picture2.png'),
-        ),
-        title: Text('Agnieszka Nowakowska'),
-        subtitle: Text('\$\$'),
-      ),
-      ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile_picture3.png'),
-        ),
-        title: Text('Robert Kowalski'),
-        subtitle: Text('\$'),
-      ),
-      ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile_picture4.png'),
-        ),
-        title: Text('Adam Nowak'),
-        subtitle: Text('\$\$\$'),
-      ),
-    ],);
   }
 }

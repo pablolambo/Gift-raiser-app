@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'components/switch.dart';
 
 class AccountPageWrapper extends StatefulWidget {
-  const AccountPageWrapper({super.key});
+  final List<Fundraiser> fundraisers;
+
+  const AccountPageWrapper({Key? key, required this.fundraisers}) : super(key: key);
 
   @override
   State<AccountPageWrapper> createState() => _AccountPageState();
 }
-
 
 class _AccountPageState extends State<AccountPageWrapper> {
   bool showActiveGifts = true;
@@ -21,16 +22,36 @@ class _AccountPageState extends State<AccountPageWrapper> {
 
   @override
   Widget build(BuildContext context) {
-      return AccountPage(showActiveGifts: showActiveGifts, onToggleGifts: toggleSwitch);
+    return AccountPage(
+      showActiveGifts: showActiveGifts,
+      onToggleGifts: toggleSwitch,
+      fundraisers: [],);
   }
+}
 
+class Fundraiser {
+  final String title;
+  final double cost;
+  final String endDate;
+
+  Fundraiser({
+    required this.title,
+    required this.cost,
+    required this.endDate,
+  });
 }
 
 class AccountPage extends StatelessWidget {
   final bool showActiveGifts;
   final Function(bool) onToggleGifts;
+  final List<Fundraiser> fundraisers;
 
-  const AccountPage({required this.showActiveGifts, super.key, required this.onToggleGifts});
+  const AccountPage({
+    required this.showActiveGifts,
+    required this.onToggleGifts,
+    required this.fundraisers,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,34 +87,29 @@ class AccountPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 10),
-                StatusSwitch(onChanged: onToggleGifts,),
+                StatusSwitch(onChanged: onToggleGifts),
                 SizedBox(height: 10),
-                if(showActiveGifts) ...[
-                  ListTile(
-                    leading: Image.asset('assets/gift_icon.png'),
-                    title: Text('Gift for Robert'),
-                    subtitle: Text('\$100 until 08.06.2024'),
-                    minLeadingWidth: 10,
-                    horizontalTitleGap: 10,
-                  ),
-                  ListTile(
-                    leading: Image.asset('assets/gift_icon.png'),
-                    title: Text('Gift for Adam'),
-                    subtitle: Text('\$150 until 10.12.2024'),
-                    minLeadingWidth: 10,
-                    horizontalTitleGap: 10,
-                  ),]
+                if (showActiveGifts)
+                  ...fundraisers.map((fundraiser) => ListTile(
+                        leading: Image.asset('assets/gift_icon.png'),
+                        title: Text(fundraiser.title),
+                        subtitle: Text('\$${fundraiser.cost} until ${fundraiser.endDate}'),
+                        minLeadingWidth: 10,
+                        horizontalTitleGap: 10,
+                      ))
                 else ...[
                   ListTile(
                     leading: Opacity(
                       opacity: 0.5,
                       child: Image.asset('assets/gift_icon.png'),
                     ),
-                    title: Text('Gift for Agnieszka',    
-                    style: TextStyle(color: Colors.grey),
+                    title: Text(
+                      'Gift for Agnieszka',
+                      style: TextStyle(color: Colors.grey),
                     ),
-                    subtitle: Text('\$200 until 02.02.2024',   
-                    style: TextStyle(color: Colors.grey),
+                    subtitle: Text(
+                      '\$200 until 02.02.2024',
+                      style: TextStyle(color: Colors.grey),
                     ),
                     minLeadingWidth: 10,
                     horizontalTitleGap: 10,
@@ -107,4 +123,3 @@ class AccountPage extends StatelessWidget {
     );
   }
 }
-
