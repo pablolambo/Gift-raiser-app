@@ -85,7 +85,10 @@ class _AddFundraiserWidgetState extends State<AddFundraiserWidget> {
             children: [
               TextButton.icon(
                 onPressed: () {
-                  // TODO: Implement this
+                    Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => AddPerson()),
+                  );
                 },
                 icon: Icon(
                   Icons.add_circle,
@@ -169,6 +172,79 @@ Expanded(
          ),
         ),
       ],
+    );
+  }
+}
+
+class AddPerson extends StatelessWidget {
+  final List<String> filters = ['Woman', 'Man', '\$', '\$\$', '\$\$\$'];
+  List<String> selectedFilters = [];
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Gift fundraiser'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    'Add a person',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 36),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.filter_list),
+                  onPressed: () {
+                    showDialog(context: 
+                    context, builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: Text('Filter'),
+                        content: Column(
+                          children: filters
+                              .map((filter) => CheckboxListTile(
+                                    title: Text(filter),
+                                    value: false,
+                                    onChanged: (bool? value) {},
+                                  ))
+                              .toList(),
+                        ),
+                        actions: [
+                          TextButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Text('OK'),
+                          ),
+                        ],
+                      );
+                    },
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextFormField(
+              decoration: InputDecoration(
+                border: OutlineInputBorder(),
+                labelText: 'Search',
+                fillColor: Color.fromARGB(240, 240, 240, 240),
+                filled: true,
+              ),
+            ),
+          ),
+          // Add your ListView or other content here
+        ],
+      ),
     );
   }
 }
