@@ -30,7 +30,6 @@ class AccountPage extends StatelessWidget {
   final bool showActiveGifts;
   final Function(bool) onToggleGifts;
 
-
   const AccountPage({required this.showActiveGifts, super.key, required this.onToggleGifts});
 
   @override

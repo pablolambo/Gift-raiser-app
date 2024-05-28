@@ -102,7 +102,6 @@ class FriendsPage extends StatelessWidget{
         ),
         title: Text('Agnieszka Nowakowska'),
         subtitle: Text('\$\$'),
-
       ),
       ListTile(
         leading: CircleAvatar(
