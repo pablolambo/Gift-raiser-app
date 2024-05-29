@@ -95,10 +95,13 @@ class _FriendsPageState extends State<FriendsPage> {
                       builder: (BuildContext context) {
                         return AlertDialog(
                           title: Text('Filter'),
-                          content: StatefulBuilder(
-                            builder: (BuildContext context, StateSetter setState) {
-                              return buildFilters(setState);
-                            },
+                          content: Container(
+                            constraints: BoxConstraints(maxHeight: 250, maxWidth: 200),
+                            child: StatefulBuilder(
+                              builder: (BuildContext context, StateSetter setState) {
+                                return buildFilters(setState);
+                              },
+                            ),
                           ),
                           actions: [
                             TextButton(
@@ -125,12 +128,11 @@ class _FriendsPageState extends State<FriendsPage> {
                 ),
               ],
             ),
-            SizedBox(height: 20), // Add some space between "Friends" and the list items
+            SizedBox(height: 20),
           ],
         ),
-        // List items go here
         ListView.builder(
-          shrinkWrap: true, // Ensures that the ListView does not occupy unnecessary space
+          shrinkWrap: true,
           itemCount: filteredNames.length,
           itemBuilder: (BuildContext context, int index) {
             return ListTile(

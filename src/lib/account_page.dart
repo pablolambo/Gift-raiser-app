@@ -25,13 +25,13 @@ class _AccountPageState extends State<AccountPageWrapper> {
     return AccountPage(
       showActiveGifts: showActiveGifts,
       onToggleGifts: toggleSwitch,
-      fundraisers: [],);
+      fundraisers: widget.fundraisers,);
   }
 }
 
 class Fundraiser {
   final String title;
-  final double cost;
+  final String cost;
   final String endDate;
 
   Fundraiser({
@@ -44,9 +44,11 @@ class Fundraiser {
 class AccountPage extends StatelessWidget {
   final bool showActiveGifts;
   final Function(bool) onToggleGifts;
-  final List<Fundraiser> fundraisers;
+  List<Fundraiser> fundraisers = [
+    Fundraiser(title: 'Gift for Agnieszka', cost: '200', endDate: '02.02.2024'),
+  ];
 
-  const AccountPage({
+  AccountPage({
     required this.showActiveGifts,
     required this.onToggleGifts,
     required this.fundraisers,

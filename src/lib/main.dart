@@ -29,7 +29,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  List<Fundraiser> _fundraisers = [];
+  List<Fundraiser> get fundraisers => _fundraisers;
+
   void notify() {
+    notifyListeners();
+  }
+
+  void addFundraiser(Fundraiser fundraiser) {
+    _fundraisers.add(fundraiser);
     notifyListeners();
   }
 }
@@ -43,6 +51,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  
 
   void _onItemTapped(int index) {
     setState(() {
@@ -50,15 +59,16 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  static List<Widget> _widgetOptions = <Widget>[
-    AccountPageWrapper(fundraisers: [],), // here
-    AddFundraiserWidget(),
-    FriendsPage(),
-  ];
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final fundraisers = Provider.of<MyAppState>(context).fundraisers;
+
+    final List<Widget> _widgetOptions = <Widget>[
+      AccountPageWrapper(fundraisers: fundraisers),
+      AddFundraiserWidget(),
+      FriendsPage(),
+    ];
 
     return Scaffold(
       appBar: AppBar(
