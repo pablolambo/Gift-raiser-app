@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
-
+import 'account_page.dart';
 import 'add_fundraiser_widget.dart';
-import 'components/switch.dart';
+import 'friends.dart';
 import 'sign_in_page.dart';
 
 void main() => runApp(const MyApp());
@@ -30,7 +29,15 @@ class MyApp extends StatelessWidget {
 }
 
 class MyAppState extends ChangeNotifier {
+  List<Fundraiser> _fundraisers = [];
+  List<Fundraiser> get fundraisers => _fundraisers;
+
   void notify() {
+    notifyListeners();
+  }
+
+  void addFundraiser(Fundraiser fundraiser) {
+    _fundraisers.add(fundraiser);
     notifyListeners();
   }
 }
@@ -44,6 +51,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
+  
 
   void _onItemTapped(int index) {
     setState(() {
@@ -51,16 +59,16 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  static List<Widget> _widgetOptions = <Widget>[
-    AccountPage(),
-    AddFundraiserWidget(),
-    FriendsPage(),
-  ];
-
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final fundraisers = Provider.of<MyAppState>(context).fundraisers;
+
+    final List<Widget> _widgetOptions = <Widget>[
+      AccountPageWrapper(fundraisers: fundraisers),
+      AddFundraiserWidget(),
+      FriendsPage(),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -80,46 +88,5 @@ class _HomePageState extends State<HomePage> {
         onTap: _onItemTapped,
       ),
     );
-  }
-}
-
-class FriendsPage extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: [
-      Center(
-        child: Text(
-          textAlign: TextAlign.left,
-          'Friends',
-          style: TextStyle(
-            fontSize: 36,
-          ),
-        ),
-      ),
-      ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile_picture2.png'),
-        ),
-        title: Text('Agnieszka Nowakowska'),
-        subtitle: Text('\$\$'),
-
-      ),
-      ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile_picture3.png'),
-        ),
-        title: Text('Robert Kowalski'),
-        subtitle: Text('\$'),
-      ),
-      ListTile(
-        leading: CircleAvatar(
-          backgroundImage: AssetImage('assets/profile_picture4.png'),
-        ),
-        title: Text('Adam Nowak'),
-        subtitle: Text('\$\$\$'),
-      ),
-    ],);
   }
 }
